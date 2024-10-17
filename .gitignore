@@ -1,3 +1,6 @@
 .env
 composer.lock
 vendor
+storage/media/albums/*
+storage/media/tracks/*
+node_modules

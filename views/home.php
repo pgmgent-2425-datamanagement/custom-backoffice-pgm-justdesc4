@@ -1,2 +1,2 @@
-<h1>Base MVC</h1>
-<p>Welcome to this base mvc project.</p>
+<h1>High Bass Audio</h1>
+<p>Welcome to the official website of High Bass Audio - Record Label.</p>
