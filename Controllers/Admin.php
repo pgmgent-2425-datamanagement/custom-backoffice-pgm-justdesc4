@@ -12,17 +12,27 @@
 
 
             $products = $AdminModel->getProducts();
+            $tracks = $AdminModel->getTracks();
             
             self::loadView('/admin', [
                 'title' => 'Admin Panel',
-                'products' => $products
+                'products' => $products,
+                'tracks' => $tracks
             ]);
 
         }
 
         public static function addProduct () {
-            self::loadView('/admin/products/add', [
-                'title' => 'Add Product'
+
+            $AdminModel = new AdminModel();
+
+            $albums = $AdminModel->getAlbums();
+            $tracks = $AdminModel->getTracks();
+
+            self::loadView('/admin/products/new', [
+                'title' => 'New product',
+                'albums' => $albums,
+                'tracks' => $tracks
             ]);
         }
     }

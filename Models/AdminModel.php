@@ -25,4 +25,20 @@ class AdminModel extends BaseModel {
         $product = $stmt->fetch(\PDO::FETCH_OBJ);
         return $product;
     }
+
+    public function getAlbums() {
+        $query = "SELECT * FROM album";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $albums = $stmt->fetchAll(\PDO::FETCH_OBJ);
+        return $albums;
+    }
+
+    public function getTracks() {
+        $query = "SELECT * FROM track";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $tracks = $stmt->fetchAll(\PDO::FETCH_OBJ);
+        return $tracks;
+    }
 }
