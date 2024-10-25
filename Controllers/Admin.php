@@ -10,7 +10,6 @@
 
             $AdminModel = new AdminModel();
 
-
             $products = $AdminModel->getProducts();
             $tracks = $AdminModel->getTracks();
             
@@ -28,11 +27,13 @@
 
             $albums = $AdminModel->getAlbums();
             $tracks = $AdminModel->getTracks();
+            $artists = $AdminModel->getArtists();
 
             self::loadView('/admin/products/new', [
                 'title' => 'New product',
                 'albums' => $albums,
-                'tracks' => $tracks
+                'tracks' => $tracks,
+                'artists' => $artists
             ]);
         }
     }
