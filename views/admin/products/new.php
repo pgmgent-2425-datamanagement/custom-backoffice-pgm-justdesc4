@@ -47,9 +47,9 @@
                 <label for="trackAlbum" class="block text-xl font-semibold mb-2 text-gray-700">Track name:</label>
                 <input type="text" id="trackAlbum" name="track" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 
-                <label for="artistSelectAlbum" class="block text-xl font-semibold mb-2 text-gray-700">Artist:</label>
+                <label for="artistSelectAlbum" class="block text-xl font-semibold mb-2 text-gray-700">Artists:</label>
+                <p class="text-sm text-gray-600">Select multiple artists by holding &lt;CTRL&gt; (&lt;Command&gt; on Mac).</p>
                 <select id="artistSelectAlbum" name="artistSelectAlbum[]" multiple class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">--Select Artist--</option>
                 </select>
 
                 <label for="trackFileAlbum" class="block text-xl font-semibold mb-2 text-gray-700">Track file:</label>
@@ -72,11 +72,6 @@
             <label for="trackSingle" class="block text-xl font-semibold mb-2 text-gray-700">Track name:</label>
             <input type="text" id="trackSingle" name="track" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             
-            <label for="artistSelectSingle" class="block text-xl font-semibold mb-2 text-gray-700">Artist:</label>
-            <select id="artistSelectSingle" name="artistSelectSingle[]" multiple class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">--Select Artist--</option>
-            </select>
-
             <label for="trackFileSingle" class="block text-xl font-semibold mb-2 text-gray-700">Track file:</label>
             <input type="file" id="trackFileSingle" name="trackFile" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>

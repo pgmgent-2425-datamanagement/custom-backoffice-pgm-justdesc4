@@ -6,7 +6,6 @@
   const singleField = document.getElementById("singleField");
   const artistList = document.getElementById("artistList");
   const artistSelectAlbum = document.getElementById("artistSelectAlbum");
-  const artistSelectSingle = document.getElementById("artistSelectSingle");
   const trackList = document.getElementById("trackList");
 
   // Event Listeners
@@ -21,6 +20,7 @@
   document
     .getElementById("album")
     .addEventListener("change", () => toggleAlbumField(true));
+  document.getElementById("mainForm").addEventListener("submit", handleSubmit);
 
   // Show form based on selected product type
   function showForm() {
@@ -61,13 +61,13 @@
       "rounded-lg"
     );
     listItem.innerHTML = `
-                    <span>${artistName} (${firstname} ${lastname}, ${country})</span>
-                    <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
-                    <input type="hidden" name="artists[]" value="${artistName}">
-                    <input type="hidden" name="firstnames[]" value="${firstname}">
-                    <input type="hidden" name="lastnames[]" value="${lastname}">
-                    <input type="hidden" name="countries[]" value="${country}">
-            `;
+                        <span>${artistName} (${firstname} ${lastname}, ${country})</span>
+                        <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
+                        <input type="hidden" name="artists[]" value="${artistName}">
+                        <input type="hidden" name="firstnames[]" value="${firstname}">
+                        <input type="hidden" name="lastnames[]" value="${lastname}">
+                        <input type="hidden" name="countries[]" value="${country}">
+                `;
     artistList.appendChild(listItem);
 
     addArtistToDropdowns(artistName);
@@ -89,7 +89,6 @@
     option.value = artistName;
     option.text = artistName;
     artistSelectAlbum.appendChild(option.cloneNode(true));
-    artistSelectSingle.appendChild(option);
   }
 
   // Add track to the track list
@@ -115,19 +114,21 @@
       "rounded-lg"
     );
     listItem.innerHTML = `
-                    <span>${trackName} (${trackFile.name})</span>
-                    <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
-                    <input type="hidden" name="tracks[]" value="${trackName}">
-                    <input type="hidden" name="trackFiles[]" value="${
-                      trackFile.name
-                    }">
-                    ${artistNames
-                      .map(
-                        (artist) =>
-                          `<input type="hidden" name="artistNames[${trackName}][]" value="${artist}">`
-                      )
-                      .join("")}
-            `;
+                        <span>${trackName} - ${artistNames.join(", ")} (${
+      trackFile.name
+    })</span>
+                        <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
+                        <input type="hidden" name="tracks[]" value="${trackName}">
+                        <input type="hidden" name="trackFiles[]" value="${
+                          trackFile.name
+                        }">
+                        ${artistNames
+                          .map(
+                            (artist) =>
+                              `<input type="hidden" name="artistNames[${trackName}][]" value="${artist}">`
+                          )
+                          .join("")}
+                `;
     trackList.appendChild(listItem);
 
     listItem
@@ -140,10 +141,38 @@
     document.getElementById("trackFileAlbum").value = "";
   }
 
+  // Handle form submission
+  function handleSubmit(event) {
+    const type = document.querySelector('input[name="type"]:checked').value;
+    if (type === "single") {
+      const trackName = document.getElementById("trackSingle").value.trim();
+      const trackFile = document.getElementById("trackFileSingle").files[0];
+
+      if (!trackName || !trackFile) {
+        event.preventDefault();
+        alert("Please provide track name and file for the single track.");
+        return;
+      }
+
+      // Add hidden inputs for single track
+      const mainForm = document.getElementById("mainForm");
+      const trackNameInput = document.createElement("input");
+      trackNameInput.type = "hidden";
+      trackNameInput.name = "tracks[]";
+      trackNameInput.value = trackName;
+      mainForm.appendChild(trackNameInput);
+
+      const trackFileInput = document.createElement("input");
+      trackFileInput.type = "hidden";
+      trackFileInput.name = "trackFiles[]";
+      trackFileInput.value = trackFile.name;
+      mainForm.appendChild(trackFileInput);
+    }
+  }
+
   // Remove artist from the list and dropdowns
   function removeItem(listItem, artistName) {
     removeOption(artistSelectAlbum, artistName);
-    removeOption(artistSelectSingle, artistName);
     listItem.remove();
   }
 
