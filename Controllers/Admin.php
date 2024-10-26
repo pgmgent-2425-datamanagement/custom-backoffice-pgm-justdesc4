@@ -31,7 +31,7 @@ class AdminController extends BaseController {
             'albums' => $albums,
             'tracks' => $tracks,
             'artists' => $artists
-        ]);
+        ], $layout = 'addProduct');
     }
 
     public static function saveMusic() {
