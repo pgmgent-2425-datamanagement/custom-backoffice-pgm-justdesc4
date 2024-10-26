@@ -66,8 +66,8 @@ class AdminModel extends BaseModel {
         $countries = $data['countries'];
         $type = $data['type'];
         $tracks = $data['tracks'];
-        $artistNames = $data['artistNames']; // This now contains artist names
-        $trackFiles = $data['trackFiles']; // Expected as an array of file names
+        $artistNames = $data['artistNames']; 
+        $trackFiles = $data['trackFiles']; 
 
         $artistIdMap = [];
         $album_id = null;
@@ -114,13 +114,7 @@ class AdminModel extends BaseModel {
         for ($i = 0; $i < count($tracks); $i++) {
             $track_title = $tracks[$i];
             $artist_name = $artistNames[$i]; // Get artist name
-            if (!isset($artistIdMap[$artist_name])) {
-                return "Artist ID for $artist_name not found";
-            }
             $artist_id = $artistIdMap[$artist_name]; // Get artist ID from map
-            if (!is_string($trackFiles[$i])) {
-                return "Track file name must be a string";
-            }
             $track_file_name = uniqid() . '-' . basename($trackFiles[$i]); // Just saving the filename with a unique ID prefix
 
             // Insert track into the track table
