@@ -36,7 +36,7 @@ class AdminController extends BaseController {
 
     public static function saveMusic() {
         $AdminModel = new AdminModel();
-
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'artists' => $_POST['artists'] ?? [],
@@ -48,9 +48,14 @@ class AdminController extends BaseController {
                 'artistNames' => $_POST['artistNames'] ?? [],
                 'trackFiles' => $_POST['trackFiles'] ?? [],
                 'albumTitle' => $_POST['albumTitle'] ?? '',
-                'albumFile' => $_POST['albumFile'] ?? ''
+                'albumFile' => $_POST['albumFile'] ?? '',
+                'pricePerTrack' => $_POST['pricePerTrack'] ?? 0,
+                'productTitle' => $_POST['productTitle'] ?? '',
+                'productDescription' => $_POST['productDescription'] ?? '',
+                'productPrice' => $_POST['productPrice'] ?? 0,
+                'productImage' => $_FILES['productImage'] ?? null
             ];
-
+    
             $result = $AdminModel->saveMusic($data);
             echo $result;
         }

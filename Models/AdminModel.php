@@ -68,6 +68,11 @@ class AdminModel extends BaseModel {
         $tracks = $data['tracks'];
         $trackFiles = $data['trackFiles']; 
         $artistNames = isset($data['artistNames']) ? $data['artistNames'] : []; 
+        $pricePerTrack = $data['pricePerTrack'];
+        $productTitle = $data['productTitle'];
+        $productDescription = $data['productDescription'];
+        $productPrice = $data['productPrice'];
+        $productImage = $data['productImage'];
 
         $artistIdMap = [];
         $album_id = null;
@@ -104,9 +109,9 @@ class AdminModel extends BaseModel {
             $album_file_name = uniqid() . '-' . basename($album_file); // Just saving the filename with a unique ID prefix
 
             // Insert album into the album table
-            $sql_album = "INSERT INTO album (title, file_path) VALUES (?, ?)";
+            $sql_album = "INSERT INTO album (title, file_path, track_price) VALUES (?, ?, ?)";
             $stmt_album = $this->db->prepare($sql_album);
-            $stmt_album->execute([$album_title, $album_file_name]);
+            $stmt_album->execute([$album_title, $album_file_name, $pricePerTrack]);
             $album_id = $this->db->lastInsertId();
         }
 
@@ -142,6 +147,21 @@ class AdminModel extends BaseModel {
                 }
             }
         }
+
+        // Save product image
+        if ($productImage) {
+            $target_dir = "images/";
+            $product_image_name = uniqid() . '-' . basename($productImage['name']);
+            $target_file = $target_dir . $product_image_name;
+            move_uploaded_file($productImage['tmp_name'], $target_file);
+        } else {
+            throw new \Exception('No image uploaded');
+        }
+
+        // Save product information
+        $sql_product = "INSERT INTO product (title, description, price, image_path, album_id, track_id) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt_product = $this->db->prepare($sql_product);
+        $stmt_product->execute([$productTitle, $productDescription, $productPrice, $product_image_name, $album_id, $track_id]);
 
         header('Location: /admin');
     }
