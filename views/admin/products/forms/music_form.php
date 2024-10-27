@@ -51,7 +51,7 @@
                 <select id="artistSelectAlbum" name="artistSelectAlbum[]" multiple class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></select>
 
                 <label for="trackFileAlbum" class="block text-lg font-semibold mt-4 mb-2 text-gray-700">Track File:</label>
-                <input type="file" id="trackFileAlbum" name="trackFile" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="file" id="trackFileAlbum" name="trackFile" accept="audio/*" class="block w-full p-4 border border-gray-300 rounded-md">
                 <button type="button" id="addTrackButton" class="mt-4 mb-4 px-5 py-3 w-full cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2">Save track</button>
 
                 <ul id="trackList" class="mt-5 space-y-3"></ul>
@@ -59,7 +59,7 @@
                 <label for="pricePerTrack" class="block text-lg font-semibold mb-2 text-gray-700">Price per Track:</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">€</span>
-                    <input type="number" id="pricePerTrack" name="pricePerTrack" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" id="pricePerTrack" name="pricePerTrack" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                 <input type="text" id="albumTitle" name="albumTitle" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 
                 <label for="albumFile" class="block text-lg font-semibold mb-2 text-gray-700">Album File (.zip):</label>
-                <input type="file" id="albumFile" name="albumFile" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="file" id="albumFile" name="albumFile" accept=".zip,.rar,.7zip" class="block w-full p-4 border border-gray-300 rounded-md">
             </div>
         </div>
 
@@ -79,25 +79,25 @@
                 <input type="text" id="trackSingle" name="track" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 
                 <label for="trackFileSingle" class="block text-lg font-semibold mb-2 text-gray-700">Track File:</label>
-                <input type="file" id="trackFileSingle" name="trackFile" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="file" id="trackFileSingle" name="trackFile" accept="audio/*" class="block w-full p-4 border border-gray-300 rounded-md">
         </div>
 
         <div id="productInfo" class="mt-6 space-y-6">
             <h2 class="text-3xl font-semibold mb-2 text-gray-700">Product info:</h2>
             <label for="productTitle" class="block text-lg font-semibold mb-2 text-gray-700">Product Name:</label>
-            <input type="text" id="productTitle" name="productTitle" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="text" id="productTitle" name="productTitle" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
 
             <label for="productDescription" class="block text-lg font-semibold mb-2 text-gray-700">Description:</label>
-            <textarea id="productDescription" name="productDescription" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <textarea id="productDescription" name="productDescription" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
             
             <label for="productPrice" class="block text-lg font-semibold mb-2 text-gray-700">Price:</label>
             <div class="relative">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">€</span>
-                <input type="number" id="productPrice" name="productPrice" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="number" id="productPrice" name="productPrice" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             </div>
 
             <label for="productImage" class="block text-lg font-semibold mb-2 text-gray-700">Image:</label>
-            <input type="file" id="productImage" name="productImage" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="file" id="productImage" name="productImage" accept="image/*" class="block w-full p-4 border border-gray-300 rounded-md" required>
         </div>
         
         <input type="submit" value="Save product" class="mt-4 w-full py-4 bg-blue-500 text-white text-lg font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
