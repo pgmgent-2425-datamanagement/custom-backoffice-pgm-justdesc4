@@ -180,6 +180,29 @@ public function saveMusic($data) {
     header('Location: /admin');
 }
 
+public function editProduct($id, $data) {
+    // Update product details
+    $sql = "UPDATE product SET title = :title, description = :description, price = :price";
+    
+    // Check if image path is set
+    if (isset($data['image_path'])) {
+        $sql .= ", image_path = :image_path";
+    }
+    
+    $sql .= " WHERE id = :id";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':title', $data['title']);
+    $stmt->bindParam(':description', $data['description']);
+    $stmt->bindParam(':price', $data['price']);
+    if (isset($data['image_path'])) {
+        $stmt->bindParam(':image_path', $data['image_path']);
+    }
+    $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+    
+    return $stmt->execute();
+}
+
 public function deleteProduct($id) {
     // Fetch product details
     $query = "SELECT album_id, track_id FROM product WHERE id = :id";
