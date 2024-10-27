@@ -5,7 +5,7 @@
     <a href="/admin/products/new" class="text-blue-500 hover:text-blue-700">Add Product</a>
     <table class="min-w-full bg-white border border-gray-200 mt-4">
         <thead>
-            <tr >
+            <tr>
                 <th class="text-start py-2 px-4 border-b">Image</th>
                 <th class="text-start py-2 px-4 border-b">Title</th>
                 <th class="text-start py-2 px-4 border-b">Price</th>
@@ -22,11 +22,12 @@
                     <td class="py-2 px-4 border-b border-r">€ <?= $product->price ?></td>
                     <td class="py-2 px-4 border-b">
                         <a href="/admin/products/edit/<?= $product->id ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
-                        <a href="/admin/products/delete/<?= $product->id ?>" class="text-red-500 hover:text-red-700 ml-2">Delete</a>
+                        <form action="/admin/products/delete/<?= $product->id ?>" method="POST" style="display:inline;">
+                            <button type="submit" class="text-red-500 hover:text-red-700 ml-2">Delete</button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
-

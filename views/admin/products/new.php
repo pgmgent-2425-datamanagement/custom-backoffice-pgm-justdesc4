@@ -69,7 +69,7 @@
                 <label for="pricePerTrack" class="block text-lg font-semibold mb-2 text-gray-700">Price per Track:</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">€</span>
-                    <input type="number" id="productPrice" name="productPrice" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" id="pricePerTrack" name="pricePerTrack" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
             </div>
 
@@ -107,7 +107,7 @@
             </div>
 
             <label for="productImage" class="block text-lg font-semibold mb-2 text-gray-700">Image:</label>
-            <input type="file" id="productImage" name="productImage" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="file" id="productImage" name="productImage" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
         </div>
         
         <input type="submit" value="Save product" class="mt-4 w-full py-4 bg-blue-500 text-white text-lg font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">

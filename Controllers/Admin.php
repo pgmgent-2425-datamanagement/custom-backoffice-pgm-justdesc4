@@ -48,7 +48,7 @@ class AdminController extends BaseController {
                 'artistNames' => $_POST['artistNames'] ?? [],
                 'trackFiles' => $_POST['trackFiles'] ?? [],
                 'albumTitle' => $_POST['albumTitle'] ?? '',
-                'albumFile' => $_POST['albumFile'] ?? '',
+                'albumFile' => $_FILES['albumFile'] ?? '',
                 'pricePerTrack' => $_POST['pricePerTrack'] ?? 0,
                 'productTitle' => $_POST['productTitle'] ?? '',
                 'productDescription' => $_POST['productDescription'] ?? '',
@@ -59,5 +59,11 @@ class AdminController extends BaseController {
             $result = $AdminModel->saveMusic($data);
             echo $result;
         }
+    }
+
+    public function deleteProduct($id) {
+        $AdminModel = new AdminModel();
+        $result = $AdminModel->deleteProduct($id);
+        echo $result;
     }
 }
