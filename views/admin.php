@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($products as $product): ?>
+            <?php foreach (array_reverse($products) as $product): ?>
                 <tr>
                     <td class="py-2 px-4 border-b border-r">
                         <img src="/images/<?= $product->image_path ?>" alt="<?= $product->title ?>" class="max-w-24">

@@ -62,7 +62,7 @@
     );
     listItem.innerHTML = `
               <span>${artistName} (${firstname} ${lastname}, ${country})</span>
-              <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
+              <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
               <input type="hidden" name="artists[]" value="${artistName}">
               <input type="hidden" name="firstnames[]" value="${firstname}">
               <input type="hidden" name="lastnames[]" value="${lastname}">
@@ -117,7 +117,7 @@
                         <span>${trackName} - ${artistNames.join(", ")} (${
       trackFile.name
     })</span>
-                        <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
+                        <button type="button" class="remove-btn px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
                         <input type="hidden" name="tracks[]" value="${trackName}">
                         <input type="hidden" name="trackFiles[]" value="${
                           trackFile.name

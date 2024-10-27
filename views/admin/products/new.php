@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <button type="button" id="addArtistButton" class="mt-4 mb-4 px-5 py-3 w-full cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-500">Save artist</button>
+        <button type="button" id="addArtistButton" class="mt-4 mb-4 px-5 py-3 w-full cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2">Save artist</button>
         <ul id="artistList" class="mt-5 space-y-3"></ul>
 
         <div>
@@ -62,9 +62,15 @@
 
                 <label for="trackFileAlbum" class="block text-lg font-semibold mt-4 mb-2 text-gray-700">Track File:</label>
                 <input type="file" id="trackFileAlbum" name="trackFile" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button type="button" id="addTrackButton" class="mt-4 mb-4 px-5 py-3 w-full cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-500">Save track</button>
+                <button type="button" id="addTrackButton" class="mt-4 mb-4 px-5 py-3 w-full cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2">Save track</button>
 
                 <ul id="trackList" class="mt-5 space-y-3"></ul>
+
+                <label for="pricePerTrack" class="block text-lg font-semibold mb-2 text-gray-700">Price per Track:</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">€</span>
+                    <input type="number" id="productPrice" name="productPrice" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
             </div>
 
             <div>
@@ -74,12 +80,6 @@
                 
                 <label for="albumFile" class="block text-lg font-semibold mb-2 text-gray-700">Album File (.zip):</label>
                 <input type="file" id="albumFile" name="albumFile" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-
-                <label for="pricePerTrack" class="block text-lg font-semibold mb-2 text-gray-700">Price per Track:</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center mt-4 text-gray-500">€</span>
-                    <input type="number" id="productPrice" name="productPrice" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
             </div>
         </div>
 
@@ -102,7 +102,7 @@
             
             <label for="productPrice" class="block text-lg font-semibold mb-2 text-gray-700">Price:</label>
             <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center mt-4 text-gray-500">€</span>
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">€</span>
                 <input type="number" id="productPrice" name="productPrice" step="0.01" value="0.00" class="block w-full pl-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
@@ -113,7 +113,8 @@
         <input type="submit" value="Save product" class="mt-4 w-full py-4 bg-blue-500 text-white text-lg font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
     </form>
 </div>
+</div>
 
 <div id="merchandiseForm" style="display:none;" class="mb-10">
-    <h2 class="text-lg font-semibold text-gray-700 text-center">Coming soon...</h2>
+    <h2 class="text-2xl mt-4 font-semibold text-gray-700 text-center">Coming soon...</h2>
 </div>
