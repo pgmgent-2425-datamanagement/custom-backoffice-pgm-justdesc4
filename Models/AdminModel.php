@@ -59,6 +59,14 @@ class AdminModel extends BaseModel {
         return $tracks;
     }
 
+    public function getUsedImages() {
+        $query = "SELECT image_path FROM product WHERE image_path IS NOT NULL";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $images = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+        return $images;
+    }
+
 public function saveMusic($data) {
     $artists = $data['artists'];
     $firstnames = $data['firstnames'];
