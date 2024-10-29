@@ -16,4 +16,16 @@ class FilemanagerController extends BaseController {
             'usedImages' => $usedImages
         ]);
     }
+
+    public static function images () {
+        $imageList = scandir(BASE_DIR . '/public/images');
+        $AdminModel = new AdminModel();
+        $usedImages = $AdminModel->getUsedImages();
+
+        self::loadView('/admin/filemanager/images', [
+            'title' => 'Filemanager',
+            'imageList' => $imageList,
+            'usedImages' => $usedImages
+        ]);
+    }
 }
