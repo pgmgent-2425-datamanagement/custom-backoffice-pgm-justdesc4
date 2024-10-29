@@ -8,7 +8,6 @@
             <th class="py-2 px-4 border-b text-start">Image</th>
             <th class="py-2 px-4 border-b text-start">Name</th>
             <th class="py-2 px-4 border-b text-start">In Use</th>
-            <th class="py-2 px-4 border-b text-start">Delete file</th>
         </tr>
     </thead>
     <tbody>
@@ -21,20 +20,13 @@
         ?>
             <tr class="border-b hover:bg-gray-50">
                 <td class="py-2 px-4 border-r-2">
-                    <img src="/images/<?= $image ?>" alt="<?= $image ?>" class="w-24 h-24 object-cover">
+                    <img src="/images/<?= $image ?>" alt="<?= $image ?>" class="w-36 h-24 object-cover">
                 </td>
                 <td class="py-2 px-4 border-r-2">
                     <?= $image ?>
                 </td>
                 <td class="py-2 px-4 border-r-2">
                     <?= in_array($image, $usedImages) ? 'Yes' : 'No' ?>
-                </td>
-                <td class="py-2 px-4">
-                    <?php if (in_array($image, $usedImages)) : ?>
-                        <span class="text-gray-500">File is in use, cannot delete.</span>
-                    <?php else : ?>
-                        <a href="/admin/filemanager/delete/<?= $image ?>" class="text-red-500 hover:text-red-700">Delete</a>
-                    <?php endif; ?>
                 </td>
             </tr>
         <?php 

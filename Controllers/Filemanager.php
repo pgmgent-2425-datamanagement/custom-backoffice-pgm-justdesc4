@@ -28,4 +28,12 @@ class FilemanagerController extends BaseController {
             'usedImages' => $usedImages
         ]);
     }
+
+    public static function deleteImage($image) {
+        $imagePath = BASE_DIR . '/public/images/' . $image;
+
+        unlink($imagePath);
+
+        header('Location: /admin/filemanager/images');
+    }
 }
