@@ -2,6 +2,19 @@
 
 <div class="products mb-8">
     <a href="/admin/products/new" class="text-blue-500 hover:text-blue-700">Add Product</a>
+    
+    <!-- Search Form -->
+    <form method="GET" action="/admin/products" class="mb-4">
+        <input type="text" name="search" placeholder="Search products..." class="border p-2">
+        <button type="submit" class="bg-blue-500 text-white p-2">Search</button>
+    </form>
+
+    <!-- Filter Form -->
+    <form method="GET" action="/admin/products" class="mb-4">
+        <input type="number" name="max_price" placeholder="Max price" class="border p-2" step="0.10">
+        <button type="submit" class="bg-blue-500 text-white p-2">Filter</button>
+    </form>
+
     <table class="min-w-full bg-white border border-gray-200 mt-4">
         <thead>
             <tr>

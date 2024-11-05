@@ -19,6 +19,22 @@ class AdminModel extends BaseModel {
         return $product;
     }
 
+    public function searchProducts($searchTerm) {
+        $query = "SELECT * FROM product WHERE title LIKE :searchTerm";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
+        $products = $stmt->fetchAll(\PDO::FETCH_OBJ);
+        return $products;
+    }
+
+    public function filterProductsByPrice($maxPrice) {
+        $query = "SELECT * FROM product WHERE price <= :maxPrice";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['maxPrice' => $maxPrice]);
+        $products = $stmt->fetchAll(\PDO::FETCH_OBJ);
+        return $products;
+    }
+
     public function getArtists() {
         $query = "SELECT * FROM artist";
         $stmt = $this->db->prepare($query);

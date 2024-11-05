@@ -21,8 +21,18 @@ class AdminController extends BaseController {
 
     public static function products() {
         $AdminModel = new AdminModel();
-
-        $products = $AdminModel->getProducts();
+    
+        $searchTerm = $_GET['search'] ?? '';
+        $maxPrice = $_GET['max_price'] ?? null;
+    
+        if ($searchTerm) {
+            $products = $AdminModel->searchProducts($searchTerm);
+        } elseif ($maxPrice) {
+            $products = $AdminModel->filterProductsByPrice($maxPrice);
+        } else {
+            $products = $AdminModel->getProducts();
+        }
+    
         $tracks = $AdminModel->getTracks();
         
         self::loadView('/admin/products/list', [
