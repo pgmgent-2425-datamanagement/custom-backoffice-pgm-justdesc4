@@ -1,3 +1,5 @@
+<a href="/admin" class="text-blue-500 hover:text-blue-700"> < Back to Admin Panel</a>
+
 <h1 class="text-3xl tex-center font-bold mb-4">Products</h1>
 
 <div class="products mb-8">
