@@ -18,9 +18,9 @@
                 if ($count < 5) :
                     $count++;
         ?>
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b">
                 <td class="py-2 px-4 border-r-2">
-                    <img src="/images/<?= $image ?>" alt="<?= $image ?>" class="w-36 h-24 object-cover">
+                    <img src="/images/<?= $image ?>" alt="<?= $image ?>" class="w-24 object-cover">
                 </td>
                 <td class="py-2 px-4 border-r-2">
                     <?= $image ?>
