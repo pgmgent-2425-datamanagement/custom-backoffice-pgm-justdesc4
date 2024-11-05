@@ -13,3 +13,11 @@ $router->get('/admin/filemanager/delete/{image}', 'FilemanagerController@deleteI
 $router->post('/admin/products/savemusic', 'AdminController@saveMusic');
 $router->post('/admin/products/update/{id}', 'AdminController@editProduct');
 $router->post('/admin/products/delete/{id}', 'AdminController@deleteProduct');
+
+// API routes
+$router->get('/api/products', 'ApiController@getProducts');
+$router->get('/api/products/{id}', 'ApiController@getProduct');
+$router->get('/api/tracks', 'ApiController@getTracks');
+$router->get('/api/albums', 'ApiController@getAlbums');
+$router->get('/api/artists', 'ApiController@getArtists');
+$router->post('/api/products/add-music', 'ApiController@addMusic');
