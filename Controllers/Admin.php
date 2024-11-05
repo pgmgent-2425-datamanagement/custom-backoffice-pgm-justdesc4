@@ -19,6 +19,19 @@ class AdminController extends BaseController {
         ]);
     }
 
+    public static function products() {
+        $AdminModel = new AdminModel();
+
+        $products = $AdminModel->getProducts();
+        $tracks = $AdminModel->getTracks();
+        
+        self::loadView('/admin/products/list', [
+            'title' => 'Products',
+            'products' => $products,
+            'tracks' => $tracks
+        ]);
+    }
+
     public static function addProduct() {
         $AdminModel = new AdminModel();
 

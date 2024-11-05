@@ -4,6 +4,7 @@
 $router->setNamespace('\App\Controllers');
 $router->get('/', 'HomeController@index');
 $router->get('/admin', 'AdminController@index');
+$router->get('/admin/products', 'AdminController@products');
 $router->get('/admin/products/new', 'AdminController@addProduct');
 $router->get('/admin/products/edit/{id}', 'AdminController@editProduct');
 $router->get('/admin/filemanager', 'FilemanagerController@list');

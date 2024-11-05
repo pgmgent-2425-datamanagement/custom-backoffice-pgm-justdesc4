@@ -15,6 +15,7 @@
         <div class="container mx-auto flex justify-center space-x-4">
             <a href="/" class="hover:underline">Website</a>
             <a href="/admin" class="hover:underline">Admin Panel</a>
+            <a href="/admin/filemanager" class="hover:underline">Filemanager</a>
         </div>
     </nav>
 
