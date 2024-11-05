@@ -1,5 +1,18 @@
 <h1 class="text-3xl font-bold mb-4">Admin Panel - High Bass Audio</h1>
 
+<!-- Statistics (chart.js) -->
+<div class="statistics mb-8">
+    <h2 class="text-2xl font-semibold mb-2">Statistics</h2>
+    <div class="flex flex-wrap gap-2">
+        <div class="w-full md:w-1/2">
+            <canvas id="monthlySalesChart" width="400" height="200"></canvas>
+        </div>
+        <div class="w-full md:w-1/2">
+            <canvas id="topProductsByOrdersChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
 <div class="products mb-8">
     <h2 class="text-2xl font-semibold mb-2">Products</h2>
     <table class="min-w-full bg-white border border-gray-200 mt-4">
@@ -30,3 +43,60 @@
         </tbody>
     </table>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Monthly Sales Data
+    const monthlySalesData = <?= json_encode($monthlySales) ?>;
+    const months = monthlySalesData.map(data => data.month);
+    const sales = monthlySalesData.map(data => data.total_sales);
+
+    const monthlySalesCtx = document.getElementById('monthlySalesChart').getContext('2d');
+    new Chart(monthlySalesCtx, {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [{
+                label: 'Monthly Sales',
+                data: sales,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Top Products by Orders Data
+    const topProductsByOrdersData = <?= json_encode($topProductsByOrders) ?>;
+    const productTitles = topProductsByOrdersData.map(data => data.title);
+    const orderCounts = topProductsByOrdersData.map(data => data.order_count);
+
+    const topProductsByOrdersCtx = document.getElementById('topProductsByOrdersChart').getContext('2d');
+    new Chart(topProductsByOrdersCtx, {
+        type: 'bar',
+        data: {
+            labels: productTitles,
+            datasets: [{
+                label: 'Top Products by Orders',
+                data: orderCounts,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

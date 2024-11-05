@@ -11,13 +11,18 @@ class AdminController extends BaseController {
 
         $products = $AdminModel->getProducts();
         $tracks = $AdminModel->getTracks();
-        
+        $monthlySales = $AdminModel->getMonthlySales();
+        $topProductsByOrders = $AdminModel->getTopProductsByOrders();
+
         self::loadView('/admin', [
             'title' => 'Admin Panel',
             'products' => $products,
-            'tracks' => $tracks
+            'tracks' => $tracks,
+            'monthlySales' => $monthlySales,
+            'topProductsByOrders' => $topProductsByOrders
         ]);
     }
+
 
     public static function products() {
         $AdminModel = new AdminModel();

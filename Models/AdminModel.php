@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 class AdminModel extends BaseModel {
@@ -73,6 +72,28 @@ class AdminModel extends BaseModel {
         $tracks = $stmt->fetchAll(\PDO::FETCH_OBJ);
     
         return $tracks;
+    }
+
+    public function getMonthlySales() {
+        $query = "SELECT DATE_FORMAT(order_date, '%Y-%m') as month, SUM(total_amount) as total_sales 
+                  FROM `order` 
+                  GROUP BY month 
+                  ORDER BY month";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    public function getTopProductsByOrders() {
+        $query = "SELECT p.title, COUNT(op.order_id) as order_count 
+                FROM order_product op 
+                JOIN product p ON op.product_id = p.id 
+                GROUP BY p.title 
+                ORDER BY order_count DESC 
+                LIMIT 5";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getUsedImages() {
