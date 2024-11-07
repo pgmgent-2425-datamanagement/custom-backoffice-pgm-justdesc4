@@ -13,6 +13,40 @@
     </div>
 </div>
 
+<!-- 3 Latest Orders -->
+<div class="orders mb-8 mt-4">
+    <h2 class="text-2xl font-semibold mb-2">Latest Orders</h2>
+    <table class="min-w-full bg-white border border-gray-200 mt-4">
+        <thead>
+            <tr>
+                <th class="text-start py-2 px-4 border-b">Order ID</th>
+                <th class="text-start py-2 px-4 border-b">Customer</th>
+                <th class="text-start py-2 px-4 border-b">Total Amount</th>
+                <th class="text-start py-2 px-4 border-b">Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach (array_slice(array_reverse($orders), 0, 3) as $order): ?>
+                <tr>
+                    <td class="py-2 px-4 border-b border-r"><?= htmlspecialchars($order->id) ?></td>
+                    <td class="py-2 px-4 border-b border-r"><?= htmlspecialchars($order->customer_name) ?></td>
+                    <td class="py-2 px-4 border-b border-r">€ <?= htmlspecialchars($order->total_amount) ?></td>
+                    <td class="py-2 px-4 border-b"><?= htmlspecialchars($order->order_date) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="4">
+                    <div class="mt-4 mb-4 text-center">
+                        <a href="/admin/orders" class="text-blue-500 hover:text-blue-700 hover:underline">View all orders</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr>
+<!-- 3 Products -->
 <div class="products mb-8 mt-4">
     <div class="flex justify-between">
         <h2 class="text-2xl font-semibold mb-2">Products</h2>
@@ -48,6 +82,7 @@
     </table>
 </div>
 
+<!-- 3 Artists -->
 <div class="artists mb-8">
     <h2 class="text-2xl font-semibold mb-2">Artists</h2>
     <table class="min-w-full bg-white border border-gray-200 mt-4">
@@ -82,7 +117,6 @@
         </tbody>
     </table>
 </div>
-
 
 <!-- Script for chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

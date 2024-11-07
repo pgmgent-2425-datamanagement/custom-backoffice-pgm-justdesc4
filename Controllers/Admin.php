@@ -5,7 +5,12 @@ namespace App\Controllers;
 use App\Models\AdminModel;
 
 class AdminController extends BaseController {
-    
+
+    /**
+     * =====================================
+     * Admin Panel
+     * =====================================
+     */
     public static function index() {
         $AdminModel = new AdminModel();
 
@@ -15,6 +20,7 @@ class AdminController extends BaseController {
         $tracks = $AdminModel->getTracks();
         $monthlySales = $AdminModel->getMonthlySales();
         $topProductsByOrders = $AdminModel->getTopProductsByOrders();
+        $orders = $AdminModel->getOrders();
 
         self::loadView('/admin', [
             'title' => 'Admin Panel',
@@ -23,11 +29,16 @@ class AdminController extends BaseController {
             'products' => $products,
             'tracks' => $tracks,
             'monthlySales' => $monthlySales,
-            'topProductsByOrders' => $topProductsByOrders
+            'topProductsByOrders' => $topProductsByOrders,
+            'orders' => $orders 
         ]);
     }
 
-
+    /**
+     * =====================================
+     * Products
+     * =====================================
+     */
     public static function products() {
         $AdminModel = new AdminModel();
     
@@ -122,9 +133,9 @@ class AdminController extends BaseController {
 
 
     /**
-     * ======================
-     * PRODUCT TYPES
-     * ======================
+     * =====================================
+     * Music
+     * =====================================
      */
     public static function saveMusic() {
         $AdminModel = new AdminModel();
@@ -154,9 +165,9 @@ class AdminController extends BaseController {
     }
 
     /**
-     * =================
-     * ARTISTS
-     * =================
+     * =====================================
+     * Artists
+     * =====================================
      */
     public static function artists() {
         $AdminModel = new AdminModel();
@@ -202,10 +213,7 @@ class AdminController extends BaseController {
     public static function deleteArtist($artistId) {
         $AdminModel = new AdminModel();
     
-        // Only delete if the artist is not in use
-        if (!in_array($artistId, $AdminModel->getUsedArtists())) {
-            $AdminModel->deleteArtist($artistId);
-        }
+        $AdminModel->deleteArtist($artistId);
     
         header('Location: /admin/artists');
     }

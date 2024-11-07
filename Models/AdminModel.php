@@ -2,6 +2,12 @@
 namespace App\Models;
 
 class AdminModel extends BaseModel {
+    /**
+     * =====================================
+     * Products
+     * =====================================
+     */
+    // Fetch all products
     public function getProducts() {
         $query = "SELECT * FROM product";
         $stmt = $this->db->prepare($query);
@@ -10,6 +16,7 @@ class AdminModel extends BaseModel {
         return $products;
     }
 
+    // Fetch a single product
     public function getProduct($id) {
         $query = "SELECT * FROM product WHERE id = :id";
         $stmt = $this->db->prepare($query);
@@ -18,6 +25,92 @@ class AdminModel extends BaseModel {
         return $product;
     }
 
+    // Edit product
+    public function editProduct($id, $data) {
+        // Update product details
+        $sql = "UPDATE product SET title = :title, description = :description, price = :price";
+        
+        // Check if image path is set
+        if (isset($data['image_path'])) {
+            $sql .= ", image_path = :image_path";
+        }
+        
+        $sql .= " WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':title', $data['title']);
+        $stmt->bindParam(':description', $data['description']);
+        $stmt->bindParam(':price', $data['price']);
+        if (isset($data['image_path'])) {
+            $stmt->bindParam(':image_path', $data['image_path']);
+        }
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        
+        return $stmt->execute();
+    }
+
+    // Delete product
+    public function deleteProduct($id) {
+        // Fetch product details
+        $query = "SELECT album_id, track_id FROM product WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $product = $stmt->fetch(\PDO::FETCH_OBJ);
+
+        if ($product) {
+            if ($product->album_id) {
+                // Delete associated tracks and links in artist_track
+                $query = "SELECT id FROM track WHERE album_id = :album_id";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute(['album_id' => $product->album_id]);
+                $tracks = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+                foreach ($tracks as $track) {
+                    // Delete links in artist_track
+                    $query = "DELETE FROM artist_track WHERE track_id = :track_id";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->execute(['track_id' => $track->id]);
+
+                    // Delete track
+                    $query = "DELETE FROM track WHERE id = :track_id";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->execute(['track_id' => $track->id]);
+                }
+
+                // Delete product
+                $query = "DELETE FROM product WHERE id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute(['id' => $id]);
+
+                // Delete album
+                $query = "DELETE FROM album WHERE id = :album_id";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute(['album_id' => $product->album_id]);
+
+            } else {
+                // Delete link in artist_track
+                $query = "DELETE FROM artist_track WHERE track_id = :track_id";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute(['track_id' => $product->track_id]);
+
+                // Delete track
+                $query = "DELETE FROM track WHERE id = :track_id";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute(['track_id' => $product->track_id]);
+
+                // Delete product
+                $query = "DELETE FROM product WHERE id = :id";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute(['id' => $id]);
+            }
+
+            header('Location: /admin');
+        } else {
+            throw new \Exception('Product not found');
+        }
+    }
+
+    // Search products by title
     public function searchProducts($searchTerm) {
         $query = "SELECT * FROM product WHERE title LIKE :searchTerm";
         $stmt = $this->db->prepare($query);
@@ -26,6 +119,7 @@ class AdminModel extends BaseModel {
         return $products;
     }
 
+    // Filter products by price
     public function filterProductsByPrice($maxPrice) {
         $query = "SELECT * FROM product WHERE price <= :maxPrice";
         $stmt = $this->db->prepare($query);
@@ -34,6 +128,12 @@ class AdminModel extends BaseModel {
         return $products;
     }
 
+    /**
+     * =====================================
+     * Artists
+     * =====================================
+     */
+    // Fetch all artists
     public function getArtists() {
         $query = "SELECT * FROM artist";
         $stmt = $this->db->prepare($query);
@@ -42,6 +142,7 @@ class AdminModel extends BaseModel {
         return $artists;
     }
 
+    // Fetch a single artist
     public function getArtist($id) {
         $query = "SELECT * FROM artist WHERE id = :id";
         $stmt = $this->db->prepare($query);
@@ -50,6 +151,7 @@ class AdminModel extends BaseModel {
         return $artist;
     }
 
+    // Get artists that are used in tracks
     public function getUsedArtists() {
         $query = "SELECT DISTINCT artist_id FROM artist_track";
         $stmt = $this->db->prepare($query);
@@ -57,6 +159,7 @@ class AdminModel extends BaseModel {
         return $stmt->fetchAll(\PDO::FETCH_COLUMN); 
     }
 
+    // Edit artist
     public function editArtist($artistData) {
         $query = "UPDATE artist SET artist_name = :artist_name, firstname = :firstname, lastname = :lastname, country = :country WHERE id = :id";
         $stmt = $this->db->prepare($query);
@@ -69,14 +172,20 @@ class AdminModel extends BaseModel {
     
         $stmt->execute();
     }
-    
-    
+
+    // Delete artist
     public function deleteArtist($id) {
         $query = "DELETE FROM artist WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->execute(['id' => $id]);
     }
 
+    /**
+     * =====================================
+     * Music
+     * =====================================
+     */
+    // Fetch all albums
     public function getAlbums() {
         $query = "SELECT * FROM album";
         $stmt = $this->db->prepare($query);
@@ -85,6 +194,7 @@ class AdminModel extends BaseModel {
         return $albums;
     }
 
+    // Fetch all tracks
     public function getTracks() {
         $query = "SELECT 
         t.id AS track_id,
@@ -109,36 +219,7 @@ class AdminModel extends BaseModel {
         return $tracks;
     }
 
-    public function getMonthlySales() {
-        $query = "SELECT DATE_FORMAT(order_date, '%Y-%m') as month, SUM(total_amount) as total_sales 
-                  FROM `order` 
-                  GROUP BY month 
-                  ORDER BY month";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_OBJ);
-    }
-
-    public function getTopProductsByOrders() {
-        $query = "SELECT p.title, COUNT(op.order_id) as order_count 
-                FROM order_product op 
-                JOIN product p ON op.product_id = p.id 
-                GROUP BY p.title 
-                ORDER BY order_count DESC 
-                LIMIT 5";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_OBJ);
-    }
-
-    public function getUsedImages() {
-        $query = "SELECT image_path FROM product WHERE image_path IS NOT NULL";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        $images = $stmt->fetchAll(\PDO::FETCH_COLUMN);
-        return $images;
-    }
-
+    // Save music
     public function saveMusic($data) {
         $artists = $data['artists'];
         $firstnames = $data['firstnames'];
@@ -260,86 +341,57 @@ class AdminModel extends BaseModel {
         header('Location: /admin');
     }
 
-    public function editProduct($id, $data) {
-        // Update product details
-        $sql = "UPDATE product SET title = :title, description = :description, price = :price";
-        
-        // Check if image path is set
-        if (isset($data['image_path'])) {
-            $sql .= ", image_path = :image_path";
-        }
-        
-        $sql .= " WHERE id = :id";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':title', $data['title']);
-        $stmt->bindParam(':description', $data['description']);
-        $stmt->bindParam(':price', $data['price']);
-        if (isset($data['image_path'])) {
-            $stmt->bindParam(':image_path', $data['image_path']);
-        }
-        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
-        
-        return $stmt->execute();
+    /**
+     * =====================================
+     * Orders
+     * =====================================
+     */
+    // Fetch all orders
+    public function getOrders() {
+        $query = "SELECT o.id, o.total_amount, o.order_date, c.firstname as customer_name 
+                  FROM `order` o 
+                  JOIN customer c ON o.customer_id = c.id 
+                  ORDER BY o.order_date DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
-    public function deleteProduct($id) {
-        // Fetch product details
-        $query = "SELECT album_id, track_id FROM product WHERE id = :id";
+    // Fetch monthly sales
+    public function getMonthlySales() {
+        $query = "SELECT DATE_FORMAT(order_date, '%Y-%m') as month, SUM(total_amount) as total_sales 
+                  FROM `order` 
+                  GROUP BY month 
+                  ORDER BY month";
         $stmt = $this->db->prepare($query);
-        $stmt->execute(['id' => $id]);
-        $product = $stmt->fetch(\PDO::FETCH_OBJ);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
 
-        if ($product) {
-            if ($product->album_id) {
-                // Delete associated tracks and links in artist_track
-                $query = "SELECT id FROM track WHERE album_id = :album_id";
-                $stmt = $this->db->prepare($query);
-                $stmt->execute(['album_id' => $product->album_id]);
-                $tracks = $stmt->fetchAll(\PDO::FETCH_OBJ);
+    // Fetch top products by orders
+    public function getTopProductsByOrders() {
+        $query = "SELECT p.title, COUNT(op.order_id) as order_count 
+                FROM order_product op 
+                JOIN product p ON op.product_id = p.id 
+                GROUP BY p.title 
+                ORDER BY order_count DESC 
+                LIMIT 5";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
 
-                foreach ($tracks as $track) {
-                    // Delete links in artist_track
-                    $query = "DELETE FROM artist_track WHERE track_id = :track_id";
-                    $stmt = $this->db->prepare($query);
-                    $stmt->execute(['track_id' => $track->id]);
-
-                    // Delete track
-                    $query = "DELETE FROM track WHERE id = :track_id";
-                    $stmt = $this->db->prepare($query);
-                    $stmt->execute(['track_id' => $track->id]);
-                }
-
-                // Delete product
-                $query = "DELETE FROM product WHERE id = :id";
-                $stmt = $this->db->prepare($query);
-                $stmt->execute(['id' => $id]);
-
-                // Delete album
-                $query = "DELETE FROM album WHERE id = :album_id";
-                $stmt = $this->db->prepare($query);
-                $stmt->execute(['album_id' => $product->album_id]);
-
-            } else {
-                // Delete link in artist_track
-                $query = "DELETE FROM artist_track WHERE track_id = :track_id";
-                $stmt = $this->db->prepare($query);
-                $stmt->execute(['track_id' => $product->track_id]);
-
-                // Delete track
-                $query = "DELETE FROM track WHERE id = :track_id";
-                $stmt = $this->db->prepare($query);
-                $stmt->execute(['track_id' => $product->track_id]);
-
-                // Delete product
-                $query = "DELETE FROM product WHERE id = :id";
-                $stmt = $this->db->prepare($query);
-                $stmt->execute(['id' => $id]);
-            }
-
-            header('Location: /admin');
-        } else {
-            throw new \Exception('Product not found');
-        }
+    /**
+     * =====================================
+     * File manager
+     * =====================================
+     */
+    // Get images that are used in products
+    public function getUsedImages() {
+        $query = "SELECT image_path FROM product WHERE image_path IS NOT NULL";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $images = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+        return $images;
     }
 }
