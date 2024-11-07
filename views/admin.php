@@ -44,6 +44,43 @@
     </table>
 </div>
 
+<div class="artists mb-8">
+    <h2 class="text-2xl font-semibold mb-2">Artists</h2>
+    <table class="min-w-full bg-white border border-gray-200 mt-4">
+        <thead>
+            <tr>
+                <th class="text-start py-2 px-4 border-b">Artist</th>
+                <th class="text-start py-2 px-4 border-b">First name</th>
+                <th class="text-start py-2 px-4 border-b">Last name</th>
+                <th class="text-start py-2 px-4 border-b">Country</th>
+                <th class="text-start py-2 px-4 border-b">In use</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach (array_slice($artists, 0, 3) as $artist): ?>
+                <tr>
+                    <td class="py-2 px-4 border-b border-r"><?= htmlspecialchars($artist->artist_name) ?></td>
+                    <td class="py-2 px-4 border-b border-r"><?= htmlspecialchars($artist->firstname) ?></td>
+                    <td class="py-2 px-4 border-b border-r"><?= htmlspecialchars($artist->lastname) ?></td>
+                    <td class="py-2 px-4 border-b border-r"><?= htmlspecialchars($artist->country) ?></td>
+                    <td class="py-2 px-4 border-b">
+                        <?= in_array($artist->id, $usedArtists) ? 'Yes' : 'No' ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="6">
+                    <div class="mt-4 mb-4 text-center">
+                        <a href="/admin/artists" class="text-blue-500 hover:text-blue-700 hover:underline">View all artists</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Script for chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Monthly Sales Data

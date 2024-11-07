@@ -42,6 +42,41 @@ class AdminModel extends BaseModel {
         return $artists;
     }
 
+    public function getArtist($id) {
+        $query = "SELECT * FROM artist WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $artist = $stmt->fetch(\PDO::FETCH_OBJ);
+        return $artist;
+    }
+
+    public function getUsedArtists() {
+        $query = "SELECT DISTINCT artist_id FROM artist_track";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN); 
+    }
+
+    public function editArtist($artistData) {
+        $query = "UPDATE artist SET artist_name = :artist_name, firstname = :firstname, lastname = :lastname, country = :country WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+    
+        $stmt->bindParam(':artist_name', $artistData['artist_name']);
+        $stmt->bindParam(':firstname', $artistData['firstname']);
+        $stmt->bindParam(':lastname', $artistData['lastname']);
+        $stmt->bindParam(':country', $artistData['country']);
+        $stmt->bindParam(':id', $artistData['id'], \PDO::PARAM_INT);
+    
+        $stmt->execute();
+    }
+    
+    
+    public function deleteArtist($id) {
+        $query = "DELETE FROM artist WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['id' => $id]);
+    }
+
     public function getAlbums() {
         $query = "SELECT * FROM album";
         $stmt = $this->db->prepare($query);

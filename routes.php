@@ -7,12 +7,16 @@ $router->get('/admin', 'AdminController@index');
 $router->get('/admin/products', 'AdminController@products');
 $router->get('/admin/products/new', 'AdminController@addProduct');
 $router->get('/admin/products/edit/{id}', 'AdminController@editProduct');
+$router->get('/admin/artists', 'AdminController@artists');
+$router->get('/admin/artists/edit/{id}', 'AdminController@editArtist');
+$router->get('/admin/artists/delete/{id}', 'AdminController@deleteArtist');
 $router->get('/admin/filemanager', 'FilemanagerController@list');
 $router->get('/admin/filemanager/images', 'FilemanagerController@images');
 $router->get('/admin/filemanager/delete/{image}', 'FilemanagerController@deleteImage');
 $router->post('/admin/products/savemusic', 'AdminController@saveMusic');
 $router->post('/admin/products/update/{id}', 'AdminController@editProduct');
 $router->post('/admin/products/delete/{id}', 'AdminController@deleteProduct');
+$router->post('/admin/artists/update', 'AdminController@editArtist');
 
 // API routes
 $router->get('/api/products', 'ApiController@getProducts');

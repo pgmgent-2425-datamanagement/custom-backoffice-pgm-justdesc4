@@ -1,10 +1,13 @@
 <div id="musicForm" style="display:none;" class="mb-10">
     <form id="mainForm" action="/admin/products/savemusic" method="post" class="space-y-6" enctype="multipart/form-data">
+
+        <!-- Artist -->
         <div class="space-y-6 border-solid border-2 border-black p-4 rounded-md">
             <h2 class="text-3xl font-semibold mb-2 text-gray-700">Artists:</h2>
             <label for="artist" class="block text-lg font-semibold mb-2 text-gray-700">Artist Name:</label>
             <input type="text" id="artist" name="artist" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
         
+        <!-- Composer -->
         <div class="space-y-4">
             <h2 class="text-lg font-semibold mb-2 text-gray-700">Composer:</h2>
             <div>
@@ -23,13 +26,15 @@
             </div>
         </div>
 
+        <!-- Save Artist Button -->
         <button type="button" id="addArtistButton" class="mt-4 mb-4 px-5 py-3 w-full cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2">Save artist</button>
         <ul id="artistList" class="mt-5 space-y-3"></ul>
 
+        <!-- Type -->
         <div>
             <label class="block text-lg font-semibold mb-2 text-gray-700">Type:</label>
             <div class="flex items-center space-x-8">
-                <div >
+                <div>
                     <input type="radio" id="single" name="type" value="single" checked class="mr-2">
                     <label for="single" class="text-gray-700">Single</label>
                 </div>
@@ -40,6 +45,7 @@
             </div>
         </div>
 
+        <!-- Album Field -->
         <div id="albumField" style="display:none;" class="space-y-6">
             <div class="space-y-6 border-solid border-2 border-black p-4 rounded-md">
                 <h2 class="text-3xl font-semibold mb-2 text-gray-700">Tracks:</h2>
@@ -63,6 +69,7 @@
                 </div>
             </div>
 
+            <!-- Album Info -->
             <div>
                 <h2 class="text-3xl font-semibold mb-2 text-gray-700">Album info:</h2>
                 <label for="albumTitle" class="block text-lg font-semibold mb-2 text-gray-700">Album Name:</label>
@@ -73,15 +80,17 @@
             </div>
         </div>
 
+        <!-- Single Field -->
         <div id="singleField" class="space-y-6 border-solid border-2 border-black p-4 rounded-md">
-                <h2 class="text-3xl font-semibold mb-2 text-gray-700">Track:</h2>
-                <label for="trackSingle" class="block text-lg font-semibold mb-2 text-gray-700">Track Name:</label>
-                <input type="text" id="trackSingle" name="track" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                
-                <label for="trackFileSingle" class="block text-lg font-semibold mb-2 text-gray-700">Track File:</label>
-                <input type="file" id="trackFileSingle" name="trackFile" accept="audio/*" class="block w-full p-4 border border-gray-300 rounded-md">
+            <h2 class="text-3xl font-semibold mb-2 text-gray-700">Track:</h2>
+            <label for="trackSingle" class="block text-lg font-semibold mb-2 text-gray-700">Track Name:</label>
+            <input type="text" id="trackSingle" name="track" class="block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            
+            <label for="trackFileSingle" class="block text-lg font-semibold mb-2 text-gray-700">Track File:</label>
+            <input type="file" id="trackFileSingle" name="trackFile" accept="audio/*" class="block w-full p-4 border border-gray-300 rounded-md">
         </div>
 
+        <!-- Product Info -->
         <div id="productInfo" class="mt-6 space-y-6">
             <h2 class="text-3xl font-semibold mb-2 text-gray-700">Product info:</h2>
             <label for="productTitle" class="block text-lg font-semibold mb-2 text-gray-700">Product Name:</label>
@@ -100,7 +109,7 @@
             <input type="file" id="productImage" name="productImage" accept="image/*" class="block w-full p-4 border border-gray-300 rounded-md" required>
         </div>
         
+        <!-- Save Product Button -->
         <input type="submit" value="Save product" class="mt-4 w-full py-4 bg-blue-500 text-white text-lg font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
     </form>
-</div>
 </div>

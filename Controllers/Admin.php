@@ -9,6 +9,8 @@ class AdminController extends BaseController {
     public static function index() {
         $AdminModel = new AdminModel();
 
+        $artists = $AdminModel->getArtists();
+        $usedArtists = $AdminModel->getUsedArtists();
         $products = $AdminModel->getProducts();
         $tracks = $AdminModel->getTracks();
         $monthlySales = $AdminModel->getMonthlySales();
@@ -16,6 +18,8 @@ class AdminController extends BaseController {
 
         self::loadView('/admin', [
             'title' => 'Admin Panel',
+            'artists' => $artists,
+            'usedArtists' => $usedArtists,
             'products' => $products,
             'tracks' => $tracks,
             'monthlySales' => $monthlySales,
@@ -62,53 +66,53 @@ class AdminController extends BaseController {
         ], $layout = 'addProduct');
     }
 
-public static function editProduct($id) {
-    $AdminModel = new AdminModel();
+    public static function editProduct($id) {
+        $AdminModel = new AdminModel();
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Collect data from the form
-        $data = [
-            'title' => $_POST['productTitle'] ?? '',
-            'description' => $_POST['productDescription'] ?? '',
-            'price' => $_POST['productPrice'] ?? 0,
-            'image_path' => null
-        ];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Collect data from the form
+            $data = [
+                'title' => $_POST['productTitle'] ?? '',
+                'description' => $_POST['productDescription'] ?? '',
+                'price' => $_POST['productPrice'] ?? 0,
+                'image_path' => null
+            ];
 
-        // Handle file upload
-        if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == UPLOAD_ERR_OK) {
-            $target_dir = "images/";
-            $product_image_name = uniqid() . '-' . basename($_FILES['productImage']['name']);
-            $target_file = $target_dir . $product_image_name;
-            if (move_uploaded_file($_FILES['productImage']['tmp_name'], $target_file)) {
-                $data['image_path'] = $product_image_name;
-            } else {
-                echo "Failed to upload image.";
-                return;
+            // Handle file upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == UPLOAD_ERR_OK) {
+                $target_dir = "images/";
+                $product_image_name = uniqid() . '-' . basename($_FILES['productImage']['name']);
+                $target_file = $target_dir . $product_image_name;
+                if (move_uploaded_file($_FILES['productImage']['tmp_name'], $target_file)) {
+                    $data['image_path'] = $product_image_name;
+                } else {
+                    echo "Failed to upload image.";
+                    return;
+                }
             }
-        }
 
-        // Update product in the database
-        $result = $AdminModel->editProduct($id, $data);
-        if ($result) {
-            header('Location: /admin');
+            // Update product in the database
+            $result = $AdminModel->editProduct($id, $data);
+            if ($result) {
+                header('Location: /admin');
+            } else {
+                throw new \Exception('Failed to update product');
+            }
         } else {
-            throw new \Exception('Failed to update product');
-        }
-    } else {
-        $product = $AdminModel->getProduct($id);
-        $albums = $AdminModel->getAlbums();
-        $tracks = $AdminModel->getTracks();
-        $artists = $AdminModel->getArtists();
+            $product = $AdminModel->getProduct($id);
+            $albums = $AdminModel->getAlbums();
+            $tracks = $AdminModel->getTracks();
+            $artists = $AdminModel->getArtists();
 
-        self::loadView('/admin/products/edit', [
-            'title' => 'Edit product',
-            'product' => $product,
-            'albums' => $albums,
-            'tracks' => $tracks,
-            'artists' => $artists
-        ]);
+            self::loadView('/admin/products/edit', [
+                'title' => 'Edit product',
+                'product' => $product,
+                'albums' => $albums,
+                'tracks' => $tracks,
+                'artists' => $artists
+            ]);
+        }
     }
-}
 
     public function deleteProduct($id) {
         $AdminModel = new AdminModel();
@@ -116,6 +120,12 @@ public static function editProduct($id) {
         echo $result;
     }
 
+
+    /**
+     * ======================
+     * PRODUCT TYPES
+     * ======================
+     */
     public static function saveMusic() {
         $AdminModel = new AdminModel();
     
@@ -142,4 +152,62 @@ public static function editProduct($id) {
             echo $result;
         }
     }
+
+    /**
+     * =================
+     * ARTISTS
+     * =================
+     */
+    public static function artists() {
+        $AdminModel = new AdminModel();
+        $artists = $AdminModel->getArtists();
+        $usedArtists = $AdminModel->getUsedArtists();
+    
+        self::loadView('/admin/artists/list', [
+            'title' => 'Artists',
+            'artists' => $artists,
+            'usedArtists' => $usedArtists
+        ]);
+    }
+
+    public static function editArtist($id = null) {
+        $AdminModel = new AdminModel();
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Collect data from the form
+            $artistData = [
+                'id' => $_POST['artist_id'],
+                'artist_name' => $_POST['artist'],
+                'firstname' => $_POST['firstname'],
+                'lastname' => $_POST['lastname'],
+                'country' => $_POST['country']
+            ];
+    
+            // Update artist in the database
+            $AdminModel->editArtist($artistData);
+            header('Location: /admin/artists');
+        } else {
+            // Fetch artist data for the given ID
+            $artist = $AdminModel->getArtist($id);
+    
+            // Load the edit artist view
+            self::loadView('/admin/artists/edit', [
+                'title' => 'Edit Artist',
+                'artist' => $artist
+            ]);
+        }
+    }
+    
+    
+    public static function deleteArtist($artistId) {
+        $AdminModel = new AdminModel();
+    
+        // Only delete if the artist is not in use
+        if (!in_array($artistId, $AdminModel->getUsedArtists())) {
+            $AdminModel->deleteArtist($artistId);
+        }
+    
+        header('Location: /admin/artists');
+    }
+    
 }

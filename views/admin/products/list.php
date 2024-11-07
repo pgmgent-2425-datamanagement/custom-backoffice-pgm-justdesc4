@@ -4,9 +4,10 @@
 
 <div class="products mb-8">
     
-    <!-- Search Form -->
     <div class="flex justify-between p-2 pb-0">
         <div class="flex gap-1">
+
+            <!-- Search Form -->
             <form method="GET" action="/admin/products" class="mb-4">
                 <input type="text" name="search" placeholder="Search products..." class="border p-2">
                 <button type="submit" class="bg-blue-500 text-white p-2">Search</button>
@@ -20,6 +21,7 @@
                     <button type="submit" class="bg-blue-500 text-white p-2">Filter</button>
                 </div>
             </form>
+
         </div>
         <!-- Add Product -->
         <a href="/admin/products/new" class="text-white text-lg mr-4 bg-blue-500 p-2 rounded-md hover:bg-blue-600">Add product</a>
