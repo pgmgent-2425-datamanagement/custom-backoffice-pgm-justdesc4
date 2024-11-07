@@ -218,4 +218,18 @@ class AdminController extends BaseController {
         header('Location: /admin/artists');
     }
     
+    /**
+     * =====================================
+     * Orders
+     * =====================================
+     */
+    public static function orders() {
+        $AdminModel = new AdminModel();
+        $orders = $AdminModel->getOrders();
+    
+        self::loadView('/admin/orders/list', [
+            'title' => 'Orders',
+            'orders' => $orders
+        ]);
+    }
 }

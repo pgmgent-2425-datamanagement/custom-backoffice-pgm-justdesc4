@@ -2,6 +2,7 @@
 
 //$router->get('/', function() { echo 'Dit is de index vanuit de route'; });
 $router->setNamespace('\App\Controllers');
+
 // Page routes
 $router->get('/', 'HomeController@index');
 $router->get('/admin', 'AdminController@index');
@@ -9,6 +10,9 @@ $router->get('/admin', 'AdminController@index');
 /**
  * Admin routes
  */
+// Orders
+$router->get('/admin/orders', 'AdminController@orders');
+
 // Products
 $router->get('/admin/products', 'AdminController@products');
 $router->get('/admin/products/new', 'AdminController@addProduct');

@@ -348,7 +348,7 @@ class AdminModel extends BaseModel {
      */
     // Fetch all orders
     public function getOrders() {
-        $query = "SELECT o.id, o.total_amount, o.order_date, c.firstname as customer_name 
+        $query = "SELECT o.id, o.total_amount, o.order_date, c.firstname as customer_firstname, c.lastname as customer_lastname 
                   FROM `order` o 
                   JOIN customer c ON o.customer_id = c.id 
                   ORDER BY o.order_date DESC";
