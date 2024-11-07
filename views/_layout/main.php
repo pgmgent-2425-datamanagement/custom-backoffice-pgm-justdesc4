@@ -15,8 +15,8 @@
     <nav class="bg-blue-500 text-white p-4">
         <div class="container mx-auto flex justify-center space-x-4">
             <a href="/" class="hover:underline">Website</a>
-            <a href="/admin" class="hover:underline">Admin Panel</a>
-            <a href="/admin/filemanager" class="hover:underline">Filemanager</a>
+            <a href="/admin" class="hover:underline">Admin panel</a>
+            <a href="/admin/filemanager" class="hover:underline">File manager</a>
         </div>
     </nav>
 

@@ -13,8 +13,12 @@
     </div>
 </div>
 
-<div class="products mb-8">
-    <h2 class="text-2xl font-semibold mb-2">Products</h2>
+<div class="products mb-8 mt-4">
+    <div class="flex justify-between">
+        <h2 class="text-2xl font-semibold mb-2">Products</h2>
+
+        <a href="/admin/products/new" class="text-white text-lg mr-4 bg-blue-500 p-2 rounded-md hover:bg-blue-600">Add product</a>
+    </div>
     <table class="min-w-full bg-white border border-gray-200 mt-4">
         <thead>
             <tr>

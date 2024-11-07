@@ -1,4 +1,4 @@
-<h1 class="text-3xl text-center font-bold mb-6">File Manager</h1>
+<h1 class="text-3xl text-center font-bold mb-6">File manager</h1>
 
 <div>
 <h2 class="text-2xl font-bold mb-6 ml-5">Images</h2>
@@ -7,7 +7,7 @@
         <tr class="bg-gray-100">
             <th class="py-2 px-4 border-b text-start">Image</th>
             <th class="py-2 px-4 border-b text-start">Name</th>
-            <th class="py-2 px-4 border-b text-start">In Use</th>
+            <th class="py-2 px-4 border-b text-start">In use</th>
         </tr>
     </thead>
     <tbody>

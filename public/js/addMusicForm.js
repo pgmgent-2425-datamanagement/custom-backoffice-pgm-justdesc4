@@ -1,7 +1,4 @@
 (function () {
-  const productTypeSelect = document.getElementById("productType");
-  const musicForm = document.getElementById("musicForm");
-  const merchandiseForm = document.getElementById("merchandiseForm");
   const albumField = document.getElementById("albumField");
   const singleField = document.getElementById("singleField");
   const artistList = document.getElementById("artistList");
@@ -9,7 +6,6 @@
   const trackList = document.getElementById("trackList");
 
   // Event Listeners
-  productTypeSelect.addEventListener("change", showForm);
   document
     .getElementById("addArtistButton")
     .addEventListener("click", addArtist);
@@ -21,19 +17,6 @@
     .getElementById("album")
     .addEventListener("change", () => toggleAlbumField(true));
   document.getElementById("mainForm").addEventListener("submit", handleSubmit);
-
-  // Show form based on selected product type
-  function showForm() {
-    const productType = productTypeSelect.value;
-    musicForm.style.display = "none";
-    merchandiseForm.style.display = "none";
-
-    if (productType === "music") {
-      musicForm.style.display = "block";
-    } else if (productType === "merchandise") {
-      merchandiseForm.style.display = "block";
-    }
-  }
 
   // Toggle album/single fields
   function toggleAlbumField(show) {

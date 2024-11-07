@@ -1,6 +1,6 @@
 <a href="/admin/filemanager" class="text-blue-500 hover:text-blue-700"> < Back to File Manager</a>
 
-<h1 class="text-3xl text-center font-bold mb-6">File Manager - Images</h1>
+<h1 class="text-3xl text-center font-bold mb-6">File manager - Images</h1>
 
 <div>
 <table class="min-w-full bg-white border border-gray-200">
@@ -8,7 +8,7 @@
         <tr class="bg-gray-100">
             <th class="py-2 px-4 border-b text-start">Image</th>
             <th class="py-2 px-4 border-b text-start">Name</th>
-            <th class="py-2 px-4 border-b text-start">In Use</th>
+            <th class="py-2 px-4 border-b text-start">In use</th>
             <th class="py-2 px-4 border-b text-start">Actions</th>
         </tr>
     </thead>

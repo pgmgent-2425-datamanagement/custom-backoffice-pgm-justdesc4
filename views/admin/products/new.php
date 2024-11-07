@@ -14,6 +14,26 @@
 <?php include 'forms/music_form.php'; ?>
 
 <!-- Merchandise form -->
-<div id="merchandiseForm" style="display:none;" class="mb-10">
-    <h2 class="text-2xl mt-4 font-semibold text-gray-700 text-center">Coming soon...</h2>
-</div>
+<?php include 'forms/merchandise_form.php'; ?>
+
+<script>
+  const musicForm = document.getElementById("musicForm");
+  const merchandiseForm = document.getElementById("merchandiseForm");
+  const productTypeSelect = document.getElementById("productType");
+
+  // Event listener
+  productTypeSelect.addEventListener("change", showForm);
+
+  // Show form based on selected product type
+  function showForm() {
+    const productType = productTypeSelect.value;
+    musicForm.style.display = "none";
+    merchandiseForm.style.display = "none";
+
+    if (productType === "music") {
+      musicForm.style.display = "block";
+    } else if (productType === "merchandise") {
+      merchandiseForm.style.display = "block";
+    }
+  }
+</script>
