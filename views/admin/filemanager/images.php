@@ -1,6 +1,6 @@
-<h1 class="text-3xl text-center font-bold mb-6">File Manager - Images</h1>
-
 <a href="/admin/filemanager" class="text-blue-500 hover:text-blue-700"> < Back to File Manager</a>
+
+<h1 class="text-3xl text-center font-bold mb-6">File Manager - Images</h1>
 
 <div>
 <table class="min-w-full bg-white border border-gray-200">

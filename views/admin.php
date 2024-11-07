@@ -3,7 +3,7 @@
 <!-- Statistics (chart.js) -->
 <div class="statistics mb-8">
     <h2 class="text-2xl font-semibold mb-2">Statistics</h2>
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap">
         <div class="w-full md:w-1/2">
             <canvas id="monthlySalesChart" width="400" height="200"></canvas>
         </div>
@@ -59,7 +59,8 @@
             datasets: [{
                 label: 'Monthly Sales',
                 data: sales,
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
                 borderWidth: 1,
                 fill: false
             }]
