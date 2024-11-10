@@ -46,11 +46,16 @@ class ApiController extends BaseController {
         echo json_encode($artists);
     }
 
-    public static function addMusic() {
+    public static function addArtist() {
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (!$data) {
+            echo json_encode(['status' => 'error', 'message' => 'Invalid input']);
+            return;
+        }
+
         $AdminModel = new AdminModel();
+        $AdminModel->addArtist($data);
 
-        $AdminModel->saveMusic($_POST);
-
-        echo json_encode(['status' => 'success']);
+        echo json_encode(['status' => 'success', 'message' => 'Artist added successfully']);
     }
 }

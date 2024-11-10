@@ -159,6 +159,19 @@ class AdminModel extends BaseModel {
         return $stmt->fetchAll(\PDO::FETCH_COLUMN); 
     }
 
+    // Add artist
+    public function addArtist($artistData) {
+        $query = "INSERT INTO artist (artist_name, firstname, lastname, country) VALUES (:artist_name, :firstname, :lastname, :country)";
+        $stmt = $this->db->prepare($query);
+    
+        $stmt->bindParam(':artist_name', $artistData['artist_name']);
+        $stmt->bindParam(':firstname', $artistData['firstname']);
+        $stmt->bindParam(':lastname', $artistData['lastname']);
+        $stmt->bindParam(':country', $artistData['country']);
+    
+        $stmt->execute();
+    }
+
     // Edit artist
     public function editArtist($artistData) {
         $query = "UPDATE artist SET artist_name = :artist_name, firstname = :firstname, lastname = :lastname, country = :country WHERE id = :id";

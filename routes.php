@@ -38,4 +38,4 @@ $router->get('/api/products/{id}', 'ApiController@getProduct');
 $router->get('/api/tracks', 'ApiController@getTracks');
 $router->get('/api/albums', 'ApiController@getAlbums');
 $router->get('/api/artists', 'ApiController@getArtists');
-$router->post('/api/products/add-music', 'ApiController@addMusic');
+$router->post('/api/add-artist', 'ApiController@addArtist');
