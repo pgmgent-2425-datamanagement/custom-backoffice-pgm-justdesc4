@@ -15,7 +15,7 @@ This backoffice includes the following essential features:
    - **Dashboard**: The homepage displays 2 key statistics (e.g., total albums per year, orders per month) visualized with Chart.js.
    - **CRUD Operations**: Full CRUD (Create, Read, Update, Delete) functionality is implemented.
    - **File Upload**: One form allows file uploads (product images).
-   - **Relationship Management**: Supports one-to-many relationships (e.g., linking artists to albums).
+   - **Relationship Management**: Supports one-to-many relationships (e.g., linking tracks to products).
 
 3. **Optional Enhancements**
    - Many-to-many relationships managed.
